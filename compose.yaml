@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: taskmanagement
+    environment:
+      POSTGRES_DB: taskmanagement
+      POSTGRES_PASSWORD: SuperstarA223
+      POSTGRES_USER: postgres
+
+    ports:
+      - "5433:5432"
+   
+
+volumes:
+  postgres_data:

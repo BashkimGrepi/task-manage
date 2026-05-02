@@ -13,7 +13,9 @@ dotenv.config();
 const app: Application = express();
 
 if (process.env.NODE_ENV !== 'test') {
+  console.log("testi")
   connectDB();
+  console.log(`Environment: ${config.databaseUrl}`);
 }
 
 app.use(helmet()); 
