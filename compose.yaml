@@ -4,12 +4,36 @@ services:
     container_name: taskmanagement
     environment:
       POSTGRES_DB: taskmanagement
-      POSTGRES_PASSWORD: SuperstarA223
       POSTGRES_USER: postgres
-
+      POSTGRES_PASSWORD: postgres
     ports:
       - "5433:5432"
-   
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: task-backend
+    depends_on:
+      - db
+    env_file:
+      - ./backend/.env
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL}
+    container_name: task-frontend
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
 
 volumes:
   postgres_data:
