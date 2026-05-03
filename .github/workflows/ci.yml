@@ -44,3 +44,9 @@ jobs:
 
       - name: Audit dependencies
         run: npm audit --audit-level=high
+
+      - name: Build backend Docker image
+        run: docker build -t task-manager-backend -f backend/Dockerfile .
+
+      - name: Build frontend Docker image
+        run: docker build -t task-manager-frontend -f frontend/Dockerfile --build-arg VITE_API_URL=http://localhost:5000/api .
